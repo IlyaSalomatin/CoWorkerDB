@@ -1,0 +1,44 @@
+﻿@using W13.Models
+@model CoWorker
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <h4>CoWorker</h4>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        @Html.LabelFor(model => model.Name, "Name:")<br/>
+        @Html.EditorFor(model => model.Name)<br />
+        @Html.LabelFor(model => model.Position, "Position:")<br />
+        @Html.EditorFor(model => model.Position)<br />
+        @Html.LabelFor(model => model.Age, "Age:")<br />
+        @Html.EditorFor(model => model.Age)<br />
+        @Html.LabelFor(model => model.Entity, "Entity:")<br />
+        @Html.DropDownListFor(m => m.EntityId, (SelectList)ViewBag.Entitys)<br />
+    <span>Hobbys:</span><br />
+        foreach (Hobby c in (List<Hobby>)ViewBag.Hobbys)
+        {
+            <input type="checkbox" name="selectedHobbys" @(new HtmlString(Model.Hobbys.Contains(c) ? "checked=\"checked\"" : "")) value="@c.Id" />@c.Name<br />
+        }
+        <div>
+            <input type="submit" value="Save"/>
+        </div>
+
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

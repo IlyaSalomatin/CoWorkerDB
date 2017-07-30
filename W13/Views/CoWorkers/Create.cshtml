@@ -1,0 +1,41 @@
+﻿@using W13.Models
+@model CoWorker
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.LabelFor(m => m.Name, "Name:")<br />
+        @Html.EditorFor(m => m.Name)<br />
+        @Html.LabelFor(m => m.Age, "Age:")<br />
+        @Html.EditorFor(m => m.Age)<br />
+        @Html.LabelFor(m => m.Position, "Position:")<br />
+        @Html.EditorFor(m => m.Position)<br />
+        @Html.LabelFor(m => m.Entity, "Entity:")<br />
+        @Html.DropDownListFor(m => m.EntityId, (SelectList)ViewBag.Entitys)<br />
+        <span>Hobbys:</span><br />
+        foreach (Hobby c in (List<Hobby>)ViewBag.Hobbys)
+        {
+            <input type="checkbox" name="selectedHobbys" value="@c.Id" />@c.Name<br />
+        }
+        <div>
+            <input type="submit" value="Create" />
+        </div>
+
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
